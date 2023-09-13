@@ -37,7 +37,7 @@ const GlobalHeaderRight: React.FC = () => {
           <Space>
             <Button size='small'>别烦我</Button>
             <Button onClick={()=>{
-              window.open('https://github.com/Antares407/graph-compute-frontend', '_blank');
+              window.open('https://github.com/qk-antares/graph-motif-frontend', '_blank');
             }} size='small' type='primary'>这就去</Button>
           </Space>
         </>}

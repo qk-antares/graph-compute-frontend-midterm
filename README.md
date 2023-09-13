@@ -30,5 +30,37 @@ npm start
 
 ### 待算法完善
 
-![image-20230911180650210](http://image.antares.cool/PicGo/Project/motif/image-20230911180650210.png)
+![image-20230913164135075](https://article.biliimg.com/bfs/article/dcb20c51900ea39593ab2630fa38e9fe044aff83.png)
 
+1、将baseURL修改为后端地址
+
+![image-20230913163055888](https://article.biliimg.com/bfs/article/63d2fe77608cc4af3810957e19296464cb938a7a.png)
+
+2、确保后端的接口地址与前端一致，POST请求
+
+![image-20230913163153318](https://article.biliimg.com/bfs/article/12b193d7bbb247666dcd4c32650019cf55804528.png)
+
+3、确保返回的结构，data应该是一个长度36的数组
+
+![image-20230913163253558](https://article.biliimg.com/bfs/article/19f106127e26fd5fe4f65e19263ef06aea55bf0b.png)
+
+示例后端
+
+![image-20230913164032243](https://article.biliimg.com/bfs/article/afc33e40ed4ff84cd99c6fae11f72f454a6edb41.png)
+
+```
+@RestController
+@RequestMapping("/motif/compute")
+public class DemoController {
+    @PostMapping
+    public R demo(@RequestBody String fileContent){
+        System.out.println(fileContent);
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i = 1; i <= 36; i++) {
+            arrayList.add(i);
+        }
+        return R.ok(arrayList);
+    }
+}
+```

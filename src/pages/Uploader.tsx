@@ -3,6 +3,7 @@ import {Alert, Button, message, notification, UploadProps} from 'antd';
 import React, {useState} from 'react';
 import Dragger from "antd/es/upload/Dragger";
 import {downloadCaseData} from "@/utils/exampleData";
+import {motifCompute} from "@/services/motif/api";
 
 type UploaderProps = {
   setResults:  React.Dispatch<React.SetStateAction<number[]>>;
@@ -29,7 +30,7 @@ const Uploader: React.FC<UploaderProps> = ({setResults}) => {
       } catch (error) {
         message.error('文件读取失败');
       }
-      return false
+      return false;
     },
     onRemove: ()=>{
       setFileContent(null);
@@ -43,8 +44,12 @@ const Uploader: React.FC<UploaderProps> = ({setResults}) => {
       description: fileContent,
       placement: 'topRight',
     });
+
+    motifCompute(fileContent.toString()).then(res => {
+      setResults(res.data);
+    })
     //假设计算结果是1，2，3...
-    setResults(Array.from({ length: 36 }, (_, index) => index + 1));
+    //setResults(Array.from({ length: 36 }, (_, index) => index + 1));
   }
 
   return (
