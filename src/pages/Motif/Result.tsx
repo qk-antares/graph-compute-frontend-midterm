@@ -17,7 +17,7 @@ const Result: React.FC<ResultProps> = ({results})=> {
       return;
     }
     const graph = new G6.Graph(getGraphCfg(id));
-
+    
     graph.data(graphData);
     graph.render();
   }

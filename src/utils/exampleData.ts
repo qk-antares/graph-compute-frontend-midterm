@@ -1,14 +1,14 @@
 //下载示例数据
-export const downloadCaseData = ()=>{
+export const downloadCaseData = (filename: string)=>{
   // 发起请求获取example-graph.txt文件内容
-  fetch('data/example-graph.txt').then((response) => {
+  fetch(`data/${filename}`).then((response) => {
     response.blob().then((data) => {
       // 创建Blob对象并触发下载
       const blob = new Blob([data], {type: 'text/plain'});
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'example-graph.txt'; // 设置下载的文件名为example.json
+      a.download = filename;
       a.style.display = 'none';
       document.body.appendChild(a);
       a.click();

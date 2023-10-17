@@ -45,7 +45,7 @@ const Uploader: React.FC<UploaderProps> = ({setResults}) => {
       placement: 'topRight',
     });
 
-    motifCompute(fileContent.toString()).then(res => {
+    motifCompute(fileContent).then(res => {
       setResults(res.data);
     })
     //假设计算结果是1，2，3...
@@ -60,7 +60,7 @@ const Uploader: React.FC<UploaderProps> = ({setResults}) => {
           <div>
             TXT 文件规范：点边数据必须放在同一个 JSON 文件中上传，nodes 表示点的集合，edges 表示边的集合
           </div>
-          <Button style={{marginTop:4, float: 'right'}} size="small" type="primary" onClick={()=>downloadCaseData()}>
+          <Button style={{marginTop:4, float: 'right'}} size="small" type="primary" onClick={()=>downloadCaseData('example-data0.txt')}>
             下载示例数据
           </Button>
         </>}
