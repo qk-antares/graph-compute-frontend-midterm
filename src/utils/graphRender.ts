@@ -17,6 +17,13 @@ export const renderGraph = (
   //设置布局
   let graphLayout = {};
   switch (layout){
+    case 'force':
+      graphLayout = {
+        type: 'force',
+        preventOverlap: true,
+        nodeSize: 20,
+        nodeStrength: -100
+      };break;
     case 'radial':
       graphLayout = {
         type: 'radial',

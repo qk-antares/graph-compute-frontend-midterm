@@ -60,6 +60,7 @@ const Uploader: React.FC<UploaderProps> = ({setGed, setGraph1, setGraph2, graph1
       console.log({graph1, graph2})
 
       gedCompute({graph1, graph2}).then(res => {
+        console.log(res.data);
         setGed(res.data);
       })
     }

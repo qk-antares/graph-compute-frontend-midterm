@@ -68,15 +68,15 @@ const Result: React.FC<ResultProps> = ({ged, graph1, graph2})=> {
       const nodeMap = new Map<string, string>()
 
       //curData存储当前应当渲染到画布上的数据，index是当前编辑的步数
-      let curData = JSON.parse(JSON.stringify(g1?.save()));
+      let curData = JSON.parse(JSON.stringify(graph1));
+      console.log("curData", curData)
+
       let index = 0;
 
       //2. 首先对节点进行编辑
       ged.paths.nodes.forEach(edit => {
         //这次操作是添加节点
         if(!edit[0]){
-          console.log("添加节点", curData);
-
           const addId = edit[1]
           // @ts-ignore
           const addLabel = GBMap.get(edit[1])
@@ -87,13 +87,13 @@ const Result: React.FC<ResultProps> = ({ged, graph1, graph2})=> {
           }
           // @ts-ignore
           GAMap.set(addId, addLabel)
-          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, null, true,undefined,undefined, undefined)
+          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, 'radial', true, undefined,undefined, undefined)
           index++;
+
+          console.log("添加节点", curData);
         }
         //这次操作是删除节点
         else if(!edit[1]){
-          console.log("删除节点", curData);
-
           curData = {
             // @ts-ignore
             nodes: curData.nodes.map(node => {
@@ -101,13 +101,13 @@ const Result: React.FC<ResultProps> = ({ged, graph1, graph2})=> {
             }),
             edges: curData?.edges || []
           }
-          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, null, true, undefined,undefined, undefined)
+          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, 'radial', true, undefined,undefined, undefined)
           index++;
+
+          console.log("删除节点", curData);
         }
         //这次操作是替换节点
         else {
-          console.log("替换节点", curData);
-
           const labelA = GAMap.get(edit[0])
           const labelB = GBMap.get(edit[1])
           //存储节点替换产生的映射
@@ -127,9 +127,12 @@ const Result: React.FC<ResultProps> = ({ged, graph1, graph2})=> {
               edges: curData?.edges || []
             }
 
-            renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, null, true, undefined,undefined, undefined)
+            renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, 'radial', true, undefined,undefined, undefined)
             index++;
+
+            console.log("替换节点", curData);
           }
+
         }
       })
 
@@ -149,7 +152,7 @@ const Result: React.FC<ResultProps> = ({ged, graph1, graph2})=> {
             // @ts-ignore
             edges: [...curData.edges, {source: source, target: target, style: {stroke: '#e72a2a'}}]
           }
-          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, null, true, undefined,undefined, undefined)
+          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, 'radial', true, undefined,undefined, undefined)
           index++;
         }
         //删除边
@@ -163,7 +166,7 @@ const Result: React.FC<ResultProps> = ({ged, graph1, graph2})=> {
               return !(edge.source === edit[0][0] && edge.target === edit[0][1] || edge.source === edit[0][1] && edge.target === edit[0][0])
             })
           }
-          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, null, true, undefined,undefined, undefined)
+          renderGraph(`edit${index}`, canvasWidth, canvasHeight, curData, 'radial', true, undefined,undefined, undefined)
           index++;
         }
       })
